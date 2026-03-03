@@ -45,7 +45,9 @@ export const TodoList: React.FC<Props> = ({ todos }) => {
               </td>
               <td className="is-vcentered is-expanded">
                 <p
-                  className={`has-text-${todo.completed ? 'success' : 'danger'}`}
+                  className={
+                    todo.completed ? 'has-text-success' : 'has-text-danger'
+                  }
                 >
                   {todo.title}
                 </p>
@@ -55,14 +57,16 @@ export const TodoList: React.FC<Props> = ({ todos }) => {
                   data-cy="selectButton"
                   className="button"
                   type="button"
-                  key={todo.id}
                   onClick={() => {
                     setSelected(prev => (prev?.id === todo.id ? null : todo));
                   }}
                 >
                   <span className="icon">
                     <i
-                      className={`far fa-eye${selected?.id === todo.id ? '-slash' : ''}`}
+                      className={classNames(
+                        'far',
+                        `fa-eye${selected?.id === todo.id ? '-slash' : ''}`,
+                      )}
                     />
                   </span>
                 </button>

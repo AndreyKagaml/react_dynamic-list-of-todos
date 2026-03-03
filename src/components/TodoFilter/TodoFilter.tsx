@@ -4,10 +4,10 @@ import debounce from 'lodash.debounce';
 
 type Props = {
   todos: Todo[];
-  toFilter: (todos: Todo[]) => void;
+  onFilter: (todos: Todo[]) => void;
 };
 
-export const TodoFilter: React.FC<Props> = ({ todos, toFilter }) => {
+export const TodoFilter: React.FC<Props> = ({ todos, onFilter }) => {
   const [status, setStatus] = useState('all');
   const [query, setQuery] = useState('');
   const [finalQuery, setFinalQuery] = useState('');
@@ -28,7 +28,7 @@ export const TodoFilter: React.FC<Props> = ({ todos, toFilter }) => {
       );
     }
 
-    toFilter(preparedTodos);
+    onFilter(preparedTodos);
   }, [todos, status, finalQuery]);
 
   const reset = () => {

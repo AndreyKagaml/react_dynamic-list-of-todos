@@ -12,6 +12,7 @@ import { getTodos } from './api';
 export const App: React.FC = () => {
   const [todosFromServer, setTodosFromServer] = useState<Todo[]>([]);
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const loadTodo = () => {
     getTodos()
@@ -20,7 +21,8 @@ export const App: React.FC = () => {
 
         return tods;
       })
-      .then(tods => setTodos(tods));
+      .then(tods => setTodos(tods))
+      .finally(() => setIsLoading(false));
   };
 
   useEffect(() => {
@@ -35,11 +37,11 @@ export const App: React.FC = () => {
             <h1 className="title">Todos:</h1>
 
             <div className="block">
-              <TodoFilter todos={todosFromServer} toFilter={setTodos} />
+              <TodoFilter todos={todosFromServer} onFilter={setTodos} />
             </div>
 
             <div className="block">
-              {todos.length === 0 && <Loader />}
+              {isLoading && <Loader />}
               <TodoList todos={todos} />
             </div>
           </div>
